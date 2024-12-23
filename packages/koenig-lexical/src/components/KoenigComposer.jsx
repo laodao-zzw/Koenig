@@ -122,7 +122,7 @@ const KoenigComposer = ({
             }}>
                 <KoenigSelectedCardContext>
                     <TKContext>
-                        {enableMultiplayer ? (
+                        {/* {enableMultiplayer ? (
                             <CollaborationPlugin
                                 id="main"
                                 initialEditorState={initialEditorState}
@@ -130,7 +130,7 @@ const KoenigComposer = ({
                                 shouldBootstrap={true}
                                 username={multiplayerUsername}
                             />
-                        ) : null}
+                        ) : null} */}
                         {children}
                     </TKContext>
                 </KoenigSelectedCardContext>

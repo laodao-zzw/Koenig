@@ -21,6 +21,7 @@ const KoenigEditor = ({
         <SharedHistoryContext>
             <SharedOnChangeContext onChange={onChange}>
                 <KoenigComposableEditor {...props}>
+                    {/* 添加默认插件 */}
                     <AllDefaultPlugins />
                     {children}
                 </KoenigComposableEditor>

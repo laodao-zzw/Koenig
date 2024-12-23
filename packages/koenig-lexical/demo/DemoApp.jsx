@@ -123,29 +123,31 @@ function getAllowedNodes({editorType}) {
 }
 
 function DemoEditor({editorType, registerAPI, cursorDidExitAtTop, darkMode, setWordCount, setTKCount}) {
-    if (editorType === 'basic') {
-        return (
-            <KoenigComposableEditor
-                cursorDidExitAtTop={cursorDidExitAtTop}
-                markdownTransformers={BASIC_TRANSFORMERS}
-                registerAPI={registerAPI}
-            >
-                <WordCountPlugin onChange={setWordCount} />
-            </KoenigComposableEditor>
-        );
-    } else if (editorType === 'minimal') {
-        return (
-            <KoenigComposableEditor
-                cursorDidExitAtTop={cursorDidExitAtTop}
-                isSnippetsEnabled={false}
-                markdownTransformers={MINIMAL_TRANSFORMERS}
-                registerAPI={registerAPI}
-            >
-                <RestrictContentPlugin paragraphs={1} />
-                <WordCountPlugin onChange={setWordCount} />
-            </KoenigComposableEditor>
-        );
-    }
+    console.log('editorType', editorType);
+
+    // if (editorType === 'basic') {
+    //     return (
+    //         <KoenigComposableEditor
+    //             cursorDidExitAtTop={cursorDidExitAtTop}
+    //             markdownTransformers={BASIC_TRANSFORMERS}
+    //             registerAPI={registerAPI}
+    //         >
+    //             <WordCountPlugin onChange={setWordCount} />
+    //         </KoenigComposableEditor>
+    //     );
+    // } else if (editorType === 'minimal') {
+    //     return (
+    //         <KoenigComposableEditor
+    //             cursorDidExitAtTop={cursorDidExitAtTop}
+    //             isSnippetsEnabled={false}
+    //             markdownTransformers={MINIMAL_TRANSFORMERS}
+    //             registerAPI={registerAPI}
+    //         >
+    //             <RestrictContentPlugin paragraphs={1} />
+    //             <WordCountPlugin onChange={setWordCount} />
+    //         </KoenigComposableEditor>
+    //     );
+    // }
 
     return (
         <KoenigEditor
@@ -153,8 +155,8 @@ function DemoEditor({editorType, registerAPI, cursorDidExitAtTop, darkMode, setW
             darkMode={darkMode}
             registerAPI={registerAPI}
         >
-            <WordCountPlugin onChange={setWordCount} />
-            <TKCountPlugin onChange={setTKCount} />
+            {/* <WordCountPlugin onChange={setWordCount} />
+            <TKCountPlugin onChange={setTKCount} /> */}
         </KoenigEditor>
     );
 }
@@ -315,31 +317,34 @@ function DemoComposer({editorType, isMultiplayer, setWordCount, setTKCount}) {
         stripeEnabled: searchParams.get('stripe') === 'false' ? false : defaultCardConfig.stripeEnabled
     };
 
+    console.log('editorType---1', editorType);
+
     return (
         <KoenigComposer
             cardConfig={cardConfig}
             darkMode={darkMode}
             enableMultiplayer={isMultiplayer}
             fileUploader={{useFileUpload: useFileUpload({isMultiplayer}), fileTypes}}
-            initialEditorState={initialContent}
+            // initialEditorState={initialContent}
             isTKEnabled={true} // TODO: can we move this onto <KoenigEditor>?
             multiplayerDocId={`demo/${WEBSOCKET_ID}`}
             multiplayerEndpoint={WEBSOCKET_ENDPOINT}
             nodes={getAllowedNodes({editorType})}
         >
             <div className={`koenig-demo relative h-full grow ${darkMode ? 'dark' : ''}`} style={isSidebarOpen ? {'--kg-breakout-adjustment': '440px'} : {}}>
-                {
+                {/* 头部 */}
+                {/* {
                     !isMultiplayer && searchParams !== 'false'
                         ? <InitialContentToggle defaultContent={defaultContent} searchParams={searchParams} setSearchParams={setSearchParams} setTitle={setTitle} />
                         : null
                 }
-                <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+                <DarkModeToggle darkMode={darkMode} toggleDarkMode={toggleDarkMode} /> */}
                 <div ref={containerRef} className="h-full overflow-auto overflow-x-hidden" onClick={focusEditor} onMouseDown={maybeSkipFocusEditor}>
                     <div className="mx-auto max-w-[740px] px-6 py-[15vmin] lg:px-0">
-                        {showTitle
+                        {/* {showTitle
                             ? <TitleTextBox ref={titleRef} editorAPI={editorAPI} setTitle={setTitle} title={title} />
                             : null
-                        }
+                        } */}
                         <DemoEditor
                             cursorDidExitAtTop={focusTitle}
                             darkMode={darkMode}
@@ -351,13 +356,14 @@ function DemoComposer({editorType, isMultiplayer, setWordCount, setTKCount}) {
                     </div>
                 </div>
             </div>
-            <Watermark
+            {/* 尾部 */}
+            {/* <Watermark
                 editorType={editorType || 'full'}
             />
             <div className="absolute z-20 flex h-full flex-col items-end sm:relative">
                 <Sidebar isOpen={isSidebarOpen} saveContent={saveContent} view={sidebarView} />
                 <FloatingButton isOpen={isSidebarOpen} onClick={openSidebar} />
-            </div>
+            </div> */}
         </KoenigComposer>
     );
 }
@@ -378,7 +384,7 @@ function DemoApp({editorType, isMultiplayer}) {
             className={`koenig-lexical top`}
         >
             {/* outside of DemoComposer to avoid re-renders and flaky tests when word count changes */}
-            <WordCount tkCount={tkCount} wordCount={wordCount} />
+            {/* <WordCount tkCount={tkCount} wordCount={wordCount} /> */}
 
             <MemoizedDemoComposer
                 editorType={editorType}
